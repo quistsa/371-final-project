@@ -5,12 +5,13 @@ class Car {
     constructor(description){
         if (description) {
             this.id = description.id;
-            this.userID = description.userID;
-            this.title = description.title;
-            this.desc = description.desc;
-            this.type = description.type;
-            this.prio = description.prio;
-            this.status = description.status;
+            this.make = description.make;
+            this.model = description.model;
+            this.year = description.year;
+            this.mileage = description.mileage;
+
+            this.lastOil = description.lastOil;
+            this.lastTire = description.lastTire;
         }
         
         this.errors = [];
@@ -18,13 +19,27 @@ class Car {
 
     isValid(){
         this.errors = [];
-        if (!this.title || this.title.length <= 2 || this.title == ("car")) {
-            this.errors.push("Title must contain at least 3 charaters (and not be named 'car')");
+
+        if (!this.model || this.model.length <= 0){
+            this.errors.push("Car must have a model");
         }
 
-        if (!this.desc || this.desc.length <= 0){
-            this.errors.push("Car must have a description");
+        if (!this.year || parseInt(this.year) > 2030 || parseInt(this.year) < 1900){
+            this.errors.push("Car must have a valid year");
         }
+
+        if (!this.mileage || parseInt(this.mileage) < 0){
+            this.errors.push("Car must have a valid milage number");
+        }
+
+        if (!this.lastOil || parseInt(this.lastOil) < 0 || parseInt(this.lastOil) > parseInt(this.mileage)){
+            this.errors.push("Car must have a valid last oil change number- make sure it is not larger than the car's overall mileage");
+        }
+
+        if (!this.lastTire || parseInt(this.lastTire) < 0 || parseInt(this.lastTire) > parseInt(this.mileage)){
+            this.errors.push("Car must have a valid last tire rotation number- make sure it is not larger than the car's overall mileage");
+        }
+
         return this.errors.length <= 0;
     }
 

@@ -65,12 +65,13 @@ class carController{
         if (!car) {
             res.send("Could not find car with id of " + id);
         } else {
-            car.userID = req.body.car.userID;
-            car.title = req.body.car.title;
-            car.desc = req.body.car.desc;
-            car.type = req.body.car.type;
-            car.prio = req.body.car.prio;
-            car.status = req.body.car.status;
+            car.make = req.body.car.make;
+            car.model = req.body.car.model;
+            car.year = req.body.car.year;
+            car.mileage = req.body.car.mileage;
+            
+            car.lastOil = req.body.car.lastOil;
+            car.lastTire = req.body.car.lastTire;
 
             console.log("Updating car");
             carDB.updateCar(car);
@@ -98,11 +99,6 @@ class carController{
     async rawIndex(req, res) {
         let cars = await carDB.allCars();
         res.send(cars);
-    }
-
-    async home(req, res) {
-        let cars = await carDB.lastThree();
-        res.render('home', {cars: cars});
     }
 
 }

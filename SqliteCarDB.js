@@ -3,13 +3,14 @@ let Car = require('./car');
 
 class SqliteCarDB {
 
+    //UPDATE INITIALIZATION VARIABLES
     static initialize() {
         this.db.serialize(() => {
             this.db.run('DROP TABLE IF EXISTS Cars');
-            this.db.run(`CREATE TABLE Cars (id INTEGER PRIMARY KEY, userID INTEGER NOT NULL, title TEXT NOT NULL, desc TEXT NOT NULL, type NOT NULL, prio NOT NULL, status NOT NULL);`);
-            this.db.run('INSERT INTO Cars (userID, title, desc, type, prio, status) VALUES ("1", "issue", "this is a problem", "issue", "medium", "monitor");');
-            this.db.run('INSERT INTO Cars (userID, title, desc, type, prio, status) VALUES ("2", "Its a feature", "trust me its ok", "feature", "low", "closed");');
-            this.db.run('INSERT INTO Cars (userID, title, desc, type, prio, status) VALUES ("3","Needs more cars", "the more cars the better", "enhancement", "high", "open");');
+            this.db.run(`CREATE TABLE Cars (id INTEGER PRIMARY KEY, make INTEGER NOT NULL, model TEXT NOT NULL, year TEXT NOT NULL, mileage NOT NULL, lastOil NOT NULL, lastTire NOT NULL);`);
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Ford", "Fusion", "2010", "138000", "133000", "128000");');
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Honda", "Accord", "2020", "30000", "27500", "20000");');
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Toyota","Prius", "2015", "100000", "90000", "1000");');
             });
     }
 
@@ -18,14 +19,6 @@ class SqliteCarDB {
            this.db.all('SELECT * from Cars', (err, response) => {
                   resolve(response.map((item) => new Car(item)));
            });
-        });
-    }
-
-    static lastThree(){
-        return new Promise((resolve, reject) => {
-            this.db.all('SELECT * FROM (SELECT * FROM Cars ORDER BY id DESC LIMIT 3);', (err, response) => {
-                resolve(response.map((item) => new Car(item)));
-            });
         });
     }
 
@@ -45,7 +38,8 @@ class SqliteCarDB {
         let newCar = new Car(desc);
         if (newCar.isValid()) {
             return new Promise((resolve, reject) => {
-                this.db.run(`INSERT INTO Cars (userID, title, desc, type, prio, status) VALUES ("${newCar.userID}", "${newCar.title}", "${newCar.desc}", "${newCar.type}", "${newCar.prio}", "${newCar.status}");`,
+                //UPDATE VARIABLES
+                this.db.run(`INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("${newCar.make}", "${newCar.model}", "${newCar.year}", "${newCar.mileage}", "${newCar.lastOil}", "${newCar.lastTire}");`,
                     function(err, data) {
                         newCar.id = this.lastID;
                         resolve(newCar);
@@ -57,7 +51,8 @@ class SqliteCarDB {
     }
 
     static updateCar(car) {
-        this.db.run(`UPDATE Cars SET userID="${car.userID}", title="${car.title}", desc="${car.desc}", type="${car.type}", prio="${car.prio}", status="${car.status}" where id="${car.id}"`);
+        //UPDATE VARIABLES
+        this.db.run(`UPDATE Cars SET make="${car.make}", model="${car.model}", year="${car.year}", mileage="${car.mileage}", lastOil="${car.lastOil}", lastTire="${car.lastTire}" where id="${car.id}"`);
     }
 
     static removeCar(car) {
