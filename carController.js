@@ -1,0 +1,110 @@
+//perform operations on cars (create, edit, update)
+// .requires ./car & ./carDB
+
+const { test } = require('media-typer');
+const Car = require('./car');
+const carDB = require('./SqliteCarDB');
+
+class carController{
+
+    async index(req, res) {
+        let cars = await carDB.allCars();
+        res.render('carIndex', { cars: cars });
+    }
+
+    async show(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        if (!car) {
+            res.send("Couldn't find a car with ID of " + id);
+        } else {
+            res.render('carShow', { car: car  });
+        }
+    }
+
+    newCar(req, res) {
+        res.render('carNew', {car: new Car()});
+    }
+
+    async create(req, res) {
+        console.log("Creating new car");
+        
+        let newCar = await carDB.createCar(req.body.car);
+
+        if (newCar.isValid()) {
+            res.writeHead(302, { 'Location': `/cars/${newCar.id}`});
+            res.end();
+        } else {
+            res.render('carNew', { car: newCar });
+        }
+    }
+
+    async edit(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        if (!car) {
+            res.send("Couldn't find a car with id " + id);
+        } else {
+            res.render('carEdit', { car: car });
+        }
+    }
+
+    async update(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        let testCar = new Car(req.body.car);
+        if (!testCar.isValid()) {
+            testCar.id = car.id;
+            res.render('carEdit', { car: testCar });
+            return;
+        }
+
+        if (!car) {
+            res.send("Could not find car with id of " + id);
+        } else {
+            car.userID = req.body.car.userID;
+            car.title = req.body.car.title;
+            car.desc = req.body.car.desc;
+            car.type = req.body.car.type;
+            car.prio = req.body.car.prio;
+            car.status = req.body.car.status;
+
+            console.log("Updating car");
+            carDB.updateCar(car);
+
+            res.writeHead(302, { 'Location': `/cars/${car.id}` });
+            res.end();
+        }
+
+    }
+
+    async delete(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+        
+
+        if (!car) {
+            res.send("Couldn't find a car with id " + id);
+        } else {
+            carDB.removeCar(car);
+            let cars = await carDB.allCars();
+            res.render('carIndex', { cars: cars });
+        }
+    }
+
+    async rawIndex(req, res) {
+        let cars = await carDB.allCars();
+        res.send(cars);
+    }
+
+    async home(req, res) {
+        let cars = await carDB.lastThree();
+        res.render('home', {cars: cars});
+    }
+
+}
+
+module.exports = carController;
