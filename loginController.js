@@ -9,16 +9,19 @@ class LoginController {
 
         console.log("Request body")
         console.log(req.body)
-        const reversedUser = req.body.username.split("").reverse().join("")
-        if (req.body.passwd !== reversedUser) {
-            res.render("login", { message: 'Incorrect password' })
+        const user = "samquist";
+        const pass = "supersecretpassword";
+        if (req.body.username !== user) {
+            res.render("login", { message: 'Incorrect username' });
+        } else if (req.body.passwd !== pass){
+            res.render("login", { message: 'Incorrect password' });
         } else {
-            console.log("Creating new session")
+            console.log("Creating new session");
             req.session.regenerate((err) => {
                 if (err) next(err)
-                req.session.user = req.body.username
-                console.log('here!')
-                res.redirect('/cars')
+                req.session.user = req.body.username;
+                console.log('here!');
+                res.redirect('/cars');
             })
         }
     }
