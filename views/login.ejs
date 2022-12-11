@@ -10,12 +10,22 @@
             padding:20px;
         }
         p {
-            text-decoration: underline;
+            font-weight: bold;
+        }
+        .btn-group{
+            padding: 10px;
         }
     </style>
 </head>
     <body class="bg-dark bg-gradient text-light h-100">
         <h1>Welcome!</h1>
+
+        <div class="btn-group">
+            <a href="/" class="btn btn-danger" >Home</a>
+            <a href="/cars" class="btn btn-warning">Cars</a>      
+            <a href="/oilInfo" class="btn btn-success">Oil Changes</a>
+            <a href="/tireInfo" class="btn btn-info">Tire Rotation</a>
+        </div> 
     
         <p><%= message %></p>
             <form action="/login" accept-charset="UTF-8" method="post">

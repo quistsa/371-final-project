@@ -2,7 +2,7 @@
 class LoginController {
 
     loginPage(req, res) {
-        res.render('login', { message: 'Please login' })
+        res.render('login', { message: 'Please login to view your cars' })
     }
 
     requestLogin(req, res, next) {
