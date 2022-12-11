@@ -72,10 +72,10 @@
                         <%= new Intl.NumberFormat().format(car.lastTire) %>
                     </td>
                     <td class="text-info">
-                        <%= new Intl.NumberFormat().format(parseInt(car.lastOil)+5000) %>
+                        <a data-toggle="tooltip" title="If this number is smaller than your current mileage, please consider getting your oil changed soon"><%= new Intl.NumberFormat().format(parseInt(car.lastOil)+5000) %></a>
                     </td>
                     <td class="text-info">
-                        <%= new Intl.NumberFormat().format(parseInt(car.lastTire)+5000) %>
+                        <a data-toggle="tooltip" title="If this number is smaller than your current mileage, please consider getting your tires rotated soon"><%= new Intl.NumberFormat().format(parseInt(car.lastTire)+5000) %></a>
                     </td>
                     <td>
                         <a href="/cars/<%= car.id %>" class="btn btn-success btn-sm">Show</a>

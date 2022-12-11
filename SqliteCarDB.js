@@ -1,7 +1,5 @@
 var sqlite3 = require('sqlite3').verbose();
 let Car = require('./car');
-let OilChange = require('./oilChange');
-let TireRotation = require('./tireRotation');
 
 class SqliteCarDB {
 
@@ -12,15 +10,9 @@ class SqliteCarDB {
             this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Ford", "Fusion", "2010", "138000", "133000", "128000");');
             this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Honda", "Accord", "2020", "30000", "27500", "20000");');
             this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Toyota","Prius", "2015", "100000", "90000", "1000");');
-            
-            this.db.run('DROP TABLE IF EXISTS OilChanges');
-            this.db.run(`CREATE TABLE OilChanges (id INTEGER PRIMARY KEY, carID INTEGER NOT NULL, date NOT NULL, mileage NOT NULL)`);
-            this.db.run('INSERT INTO OilChanges (carID, date, mileage) VALUES ("1, date, 1000');
-            this.db.run('INSERT INTO OilChanges (carID, date, mileage) VALUES ("1, date2, 2000');
-            
-            this.db.run('DROP TABLE IF EXISTS TireRotations');
-            this.db.run(`CREATE TABLE TireRotations (id INTEGER PRIMARY KEY, carID INTEGER NOT NULL, date NOT NULL, mileage NOT NULL)`);
-        
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Hyundai","Veloster", "2016", "80000", "70000", "65000");');
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Ford","Focus ST", "2017", "68000", "67000", "67000");');
+            this.db.run('INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("Jeep","Cherokee", "2009", "200000", "100", "0");');
         });
     }
 
@@ -65,30 +57,6 @@ class SqliteCarDB {
 
     static removeCar(car) {
         this.db.run(`DELETE FROM Cars WHERE id="${car.id}"`);
-    }
-
-    static oilChanges(id) {
-        return new Promise((resolve, reject) => {
-            this.db.all(`SELECT date, mileage FROM OilChanges WHERE carID == ${id}`, (err, rows) => {
-                if (rows.length >= 1) {
-                    resolve(new OilChange(rows[0]));
-                } else {
-                    reject(`Id ${id} not found`);
-                }
-            });
-        });
-    }
-
-    static tireRotations(id) {
-        return new Promise((resolve, reject) => {
-            this.db.all(`SELECT date, mileage FROM TireRotations WHERE (carID == ${id})`, (err, rows) => {
-                if (rows.length >= 1) {
-                    resolve(new TireRotation(rows[0]));
-                } else {
-                    reject(`Id ${id} not found`);
-                }
-            });
-        });
     }
 }
 
