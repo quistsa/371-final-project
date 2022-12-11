@@ -12,23 +12,38 @@
             .btn-group{
                 padding:10px;
             }
+            .oilinfo{
+                margin: 10px;
+            }
         </style>
     </head>
-    <body>
+
+    <body class="bg-dark bg-gradient text-light h-100">
         <h1>Oil Changes</h1>
 
         <div class="btn-group">
-            <a href="/" class="btn btn-primary" >Home</a>
-            <a href="/cars" class="btn btn-primary">Cars</a>
-            <a href="/oilInfo" class="btn btn-primary">Oil Changes</a>
-            <a href="/tireInfo" class="btn btn-primary">Tire Rotation</a>
+            <a href="/" class="btn btn-danger" >Home</a>
+            <a href="/cars" class="btn btn-warning">Cars</a>      
+            <a href="/oilInfo" class="btn btn-success">Oil Changes</a>
+            <a href="/tireInfo" class="btn btn-info">Tire Rotation</a>
         </div> 
 
         <div>
-            [info on oil changes here]
+            <img src="https://usairportparking.com/wp-content/uploads/2022/01/oil-change.jpg" width="500" height="300"/>
         </div>
 
-        <a href="https://www.google.com/maps/search/oil+changes+near+me" class="btn btn-info">Find a shop</a>
+        <div class="oilInfo">
+            Oil changes are at the core of basic car maintainance, and are imperative in ensuring a long life for any vehicle. Over the lifetime of a car's oil, it will degrade.
+            This degredation is part of how the oil lubricates your enigne so effectively, but also means that over time that effectiveness wears off. It is generally reccomended 
+            that anybody change their vehicle's oil every 5000-8000 miles driven. Any more than this, and the oil will not be able to lubricate the engine properly- causing overheating
+            and damage to the engine that can be permanent.
+        </div>
+
+        <h3 class="oilInfo">
+            Need somewhere to get an oil change?
+        </h3>
+
+        <a href="https://www.google.com/maps/search/oil+changes+near+me" class="btn btn-info" target="_blank">Find a shop</a>
 
         <!--Bootstrap Imports-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">

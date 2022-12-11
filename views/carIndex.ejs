@@ -17,7 +17,7 @@
     .btn-group{
         padding: 10px;
     }
-    .btn.btn-success{
+    .btn.btn-success.new{
         margin:10px;
     }
     a {
@@ -27,18 +27,18 @@
 
 <html> 
 
-    <body>
+    <body class="bg-dark bg-gradient text-light h-100">
 
-        <h1>Car Maintainance Tracker</h1>
+        <h1>Cars</h1>
 
         <div class="btn-group">
-            <a href="/" class="btn btn-primary" >Home</a>
-            <a href="/cars" class="btn btn-primary">Cars</a>      
-            <a href="/oilInfo" class="btn btn-primary">Oil Changes</a>
-            <a href="/tireInfo" class="btn btn-primary">Tire Rotation</a>
+            <a href="/" class="btn btn-danger" >Home</a>
+            <a href="/cars" class="btn btn-warning">Cars</a>      
+            <a href="/oilInfo" class="btn btn-success">Oil Changes</a>
+            <a href="/tireInfo" class="btn btn-info">Tire Rotation</a>
         </div> 
 
-        <table class="table table-striped">
+        <table class="table table-dark text-light">
             <tr>
                 <th><a data-toggle="tooltip" title="Manufacturer of your vehicle">Make</a></th>
                 <th><a data-toggle="tooltip" title="Name/model of your vehicle">Model</a></th>
@@ -52,7 +52,7 @@
             </tr>
 
             <% cars.forEach( (car) => { %>
-                <tr>
+                <tr class="text-light">
                     <td>
                         <%= car.make %>
                     </td>
@@ -78,7 +78,7 @@
                         <%= new Intl.NumberFormat().format(parseInt(car.lastTire)+5000) %>
                     </td>
                     <td>
-                        <a href="/cars/<%= car.id %>" class="btn btn-info btn-sm">Show</a>
+                        <a href="/cars/<%= car.id %>" class="btn btn-success btn-sm">Show</a>
                         <a href="/cars/<%= car.id %>/edit" class="btn btn-warning btn-sm">Edit</a>
                     </td>
                 </tr>
@@ -88,7 +88,7 @@
 
     </body>
 
-    <a href="/cars/new" class="btn btn-success">New</a>
+    <a href="/cars/new" class="btn btn-success new">New</a>
 
     <!--Bootstrap Imports-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">

@@ -19,18 +19,18 @@
         </style>
     </head>
 
-    <body>
+    <body class="bg-dark bg-gradient text-light h-100">
 
         <h1>Car Details</h1>
 
         <div class="btn-group">
-            <a href="/" class="btn btn-primary" >Home</a>
-            <a href="/cars" class="btn btn-primary">Cars</a>
-            <a href="/oilInfo" class="btn btn-primary">Oil Changes</a>
-            <a href="/tireInfo" class="btn btn-primary">Tire Rotation</a>
+            <a href="/" class="btn btn-danger" >Home</a>
+            <a href="/cars" class="btn btn-warning">Cars</a>      
+            <a href="/oilInfo" class="btn btn-success">Oil Changes</a>
+            <a href="/tireInfo" class="btn btn-info">Tire Rotation</a>
         </div> 
 
-        <table class="table table-striped w-25">
+        <table class="table table-dark w-25">
             <tr>
                 <td class="title">Make:</td>
                 <td><%= car.make %></td>
@@ -52,19 +52,19 @@
             <tr>
                 <td class="title">Current Mileage:</td>
                 <td><%= car.mileage %></td>
-                <td><a class="btn btn-info" href="/cars/<%= car.id %>/miles" data-toggle="tooltip" title="Drive your car a bit and want to update your mileage?">Update</a></td>
+                <td><a class="btn btn-danger" href="/cars/<%= car.id %>/miles" data-toggle="tooltip" title="Drive your car a bit and want to update your mileage?">Update</a></td>
             </tr>
 
             <tr>
                 <td class="title">Miles at Last Oil Change:</td>
                 <td><%= car.lastOil %></td>
-                <td><a class="btn btn-info" href="/cars/<%= car.id %>/oil" data-toggle="tooltip" title="Just get your oil changed? This will update your current miles and last oil change mileage.">Update</a></td>
+                <td><a class="btn btn-warning" href="/cars/<%= car.id %>/oil" data-toggle="tooltip" title="Just get your oil changed? This will update your current miles and last oil change mileage.">Update</a></td>
             </tr>
         
             <tr>
                 <td class="title">Miles at Last Tire Rotation:</td>
                 <td><%= car.lastTire %></td>
-                <td><a class="btn btn-info" href="/cars/<%= car.id %>/tire" data-toggle="tooltip" title="Just get your tires rotated? This will update your current miles and last tire rotation mileage.">Update</a></td>
+                <td><a class="btn btn-success" href="/cars/<%= car.id %>/tire" data-toggle="tooltip" title="Just get your tires rotated? This will update your current miles and last tire rotation mileage.">Update</a></td>
             </tr>
         </table>
 

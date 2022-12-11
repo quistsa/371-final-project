@@ -1,9 +1,13 @@
 //Sam Quist
 
 const express = require('express');
+const session = require('express-session')
 
 const CarController = require('./carController');
 const carController = new CarController();
+
+const LoginController = require('./loginController');
+const loginController = new LoginController();
 
 const bodyParser = require('body-parser');
 const { response } = require('express');
@@ -12,16 +16,46 @@ const { response } = require('express');
 const app = express();
 const port = 3000;
 
+//session info
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'abcdefghijklmnopqrstuvwxzy'
+}));
+
+function isAuthenticated(req, res, next) {
+
+    console.log('Enter isAuthenticated')
+    console.log(req.session)
+    if (req.session.user) {
+        console.log("Already logged in :)")
+        next()
+    } else {
+        console.log("redirecting to login page")
+        res.redirect('/login')
+    }
+}
+
+app.use(express.static(__dirname + '/public'));
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/login', (req, res) => {
+    loginController.loginPage(req, res)
+})
+
+app.post('/login', (req, res) => {
+    loginController.requestLogin(req, res)
+})
+
 //display all cars on GET request
-app.get('/cars', (req, res) => {
+app.get('/cars', isAuthenticated, (req, res) => {
     carController.index(req,res);
 });
 
 // make a new car on POST request
-app.post('/cars', (req, res) =>{
+app.post('/cars', isAuthenticated, (req, res) =>{
     carController.create(req, res);
 });
 
