@@ -21,10 +21,13 @@
 <% 
 if (update === 'oil') {
     route = `/cars/${car.id}/oil`;
-} else {
+} else if (update === 'tire') {
     route = `/cars/${car.id}/tire`;
+} else {
+    route = `/cars/${car.id}/miles`;
 }
 %>
+
 <% if (car.errors.length > 0) { %>
     <% console.log("Errors occurred"); console.log(car.errors); %>
 

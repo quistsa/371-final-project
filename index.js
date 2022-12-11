@@ -76,6 +76,14 @@ app.get('/cars/:id/tire', (req, res) =>{
     carController.editTire(req, res);
 });
 
+app.get('/cars/:id/miles', (req, res) => {
+    carController.updateMiles(req, res); 
+ });
+
+app.post('/cars/:id/miles', (req, res) => {
+   carController.update(req, res); 
+});
+
 app.post('/cars/:id/oil', (req, res) =>{
     carController.updateOil(req, res);
     console.log("oil post");

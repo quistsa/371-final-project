@@ -187,6 +187,17 @@ class carController{
             res.end();
         }
     }
+
+    async updateMiles(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        if (!car) {
+            res.send("Couldn't find a car with id " + id);
+        } else {
+            res.render('updateMiles', { car: car });
+        }
+    }
 }
 
 module.exports = carController;

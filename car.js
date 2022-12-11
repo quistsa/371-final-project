@@ -1,5 +1,4 @@
-// define what cars require & validate inputs
-
+//define car and validate inputs
 class Car {
 
     constructor(description){
@@ -41,12 +40,6 @@ class Car {
         }
 
         return this.errors.length <= 0;
-    }
-
-    isValidMiles() {
-        if (!this.mileage || parseInt(this.mileage) < 0){
-            this.errors.push("Car must have a valid milage number");
-        }
     }
 
 }
