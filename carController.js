@@ -23,7 +23,7 @@ class carController{
         if (!car) {
             res.send("Couldn't find a car with ID of " + id);
         } else {
-            res.render('carShow', { car: car  });
+            res.render('carShow', { car: car});
         }
     }
 
