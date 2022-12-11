@@ -12,6 +12,10 @@ class carController{
         res.render('carIndex', { cars: cars });
     }
 
+    async home(req, res) {
+        res.render('home');
+    }
+
     async show(req, res) {
         let id = req.params.id;
         let car = await carDB.findCar(id);
@@ -101,6 +105,35 @@ class carController{
         res.send(cars);
     }
 
+    async editOil(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        if (!car) {
+            res.send("Couldn't find a car with id " + id);
+        } else {
+            res.render('oilChange', { car: car });
+        }
+    }
+
+    async editTire(req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        if (!car) {
+            res.send("Couldn't find a car with id " + id);
+        } else {
+            res.render('tireRotate', { car: car });
+        }
+    }
+
+    async updateOil (req, res) {
+        
+    }
+
+    async updateTire (req, res) {
+
+    }
 }
 
 module.exports = carController;

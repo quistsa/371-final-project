@@ -6,6 +6,7 @@ const CarController = require('./carController');
 const carController = new CarController();
 
 const bodyParser = require('body-parser');
+const { response } = require('express');
 
 //start server
 const app = express();
@@ -57,6 +58,30 @@ app.get('/init', (req, res) => {
 //splash screen/home
 app.get('/', (req, res) => {
     carController.home(req, res);
+});
+
+app.get('/oilInfo', (req, res) =>{
+    res.render('oilChangeInfo');
+});
+
+app.get('/tireInfo', (req, res) =>{
+    res.render('tireRotateInfo');
+});
+
+app.get('/cars/:id/oil', (req, res) =>{
+    carController.editOil(req, res);
+});
+
+app.get('/cars/:id/tire', (req, res) =>{
+    carController.editTire(req, res);
+});
+
+app.post('/cars/:id/oil', (req, res) =>{
+    carController.updateOil(req, res);
+});
+
+app.post('/cars/:id/tire', (req, res) =>{
+    carController.updateTire(req, res);
 });
 
 /////////////////////

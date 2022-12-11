@@ -1,0 +1,61 @@
+        <style>
+            .label {
+                display: inline-block;
+                width: 6em;
+                font-weight: bold;
+            }
+            body{
+                padding:20px;
+            }
+            .btn-group{
+                padding:10px;
+            }
+        </style>
+
+<% 
+if (update === 'oil') {
+    route = `/cars/${car.id}/oil`;
+} else {
+    route = "/cars/${car.id}/tire";
+}
+%>
+<% if (car.errors.length > 0) { %>
+    <% console.log("Errors occurred"); console.log(car.errors); %>
+
+        <div>
+            <p>Errors:</p>
+            <ul>
+                <%- car.errors.map((item) => `<li>${item}</li>`).join("\n"); %>
+            </ul>
+        </div>
+        <% } %>
+
+        <div class="btn-group">
+            <a href="/" class="btn btn-primary" >Home</a>
+            <a href="/cars" class="btn btn-primary">Cars</a>
+            <a href="/oil" class="btn btn-primary">Oil Changes</a>
+            <a href="/tire" class="btn btn-primary">Tire Rotation</a>
+        </div> 
+
+        <form action="<%= route %>" accept-charset="UTF-8" method="post" class="form">
+
+            <div class="field ">
+                <label for="car_mileage" class="form-label"><a data-toggle="tooltip" title="Current number of miles on your vehilce">Updated Mileage</a></label>
+                <input type="text"name="car[mileage]" id="car_mileage" value="<%= car.mileage %>" class="form-control w-25">
+            </div>
+
+            <div class="actions ">
+                <input type="submit" name="commit" value="Update Mileage" class="btn btn-success"/>
+            </div>
+
+            <p>
+                <a href="/cars/:id" class="btn btn-warning">Back</a>
+            </p>
+
+        </form>
+
+        <!--Bootstrap Imports-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
+    </body>
+</html>
