@@ -128,11 +128,64 @@ class carController{
     }
 
     async updateOil (req, res) {
-        
-    }
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
+
+        let testCar = new Car(req.body.car);
+        if (!testCar.isValid()) {
+            testCar.id = car.id;
+            res.render('carEdit', { car: testCar });
+            return;
+        }
+
+        if (!car) {
+            res.send("Could not find car with id of " + id);
+        } else {
+            car.make = req.body.car.make;
+            car.model = req.body.car.model;
+            car.year = req.body.car.year;
+            car.mileage = req.body.car.mileage;
+            
+            car.lastOil = req.body.car.mileage;
+            car.lastTire = req.body.car.lastTire;
+
+            console.log("Updating car");
+            carDB.updateCar(car);
+
+            res.writeHead(302, { 'Location': `/cars/${car.id}` });
+            res.end();
+        }
+    
+        }
 
     async updateTire (req, res) {
+        let id = req.params.id;
+        let car = await carDB.findCar(id);
 
+        let testCar = new Car(req.body.car);
+        if (!testCar.isValid()) {
+            testCar.id = car.id;
+            res.render('carEdit', { car: testCar });
+            return;
+        }
+
+        if (!car) {
+            res.send("Could not find car with id of " + id);
+        } else {
+            car.make = req.body.car.make;
+            car.model = req.body.car.model;
+            car.year = req.body.car.year;
+            car.mileage = req.body.car.mileage;
+            
+            car.lastOil = req.body.car.lastOil;
+            car.lastTire = req.body.car.mileage;
+
+            console.log("Updating car");
+            carDB.updateCar(car);
+
+            res.writeHead(302, { 'Location': `/cars/${car.id}` });
+            res.end();
+        }
     }
 }
 

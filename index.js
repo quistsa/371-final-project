@@ -78,10 +78,12 @@ app.get('/cars/:id/tire', (req, res) =>{
 
 app.post('/cars/:id/oil', (req, res) =>{
     carController.updateOil(req, res);
+    console.log("oil post");
 });
 
 app.post('/cars/:id/tire', (req, res) =>{
     carController.updateTire(req, res);
+    console.log("tire post");
 });
 
 /////////////////////

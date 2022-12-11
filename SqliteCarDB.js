@@ -3,7 +3,6 @@ let Car = require('./car');
 
 class SqliteCarDB {
 
-    //UPDATE INITIALIZATION VARIABLES
     static initialize() {
         this.db.serialize(() => {
             this.db.run('DROP TABLE IF EXISTS Cars');
@@ -38,7 +37,6 @@ class SqliteCarDB {
         let newCar = new Car(desc);
         if (newCar.isValid()) {
             return new Promise((resolve, reject) => {
-                //UPDATE VARIABLES
                 this.db.run(`INSERT INTO Cars (make, model, year, mileage, lastOil, lastTire) VALUES ("${newCar.make}", "${newCar.model}", "${newCar.year}", "${newCar.mileage}", "${newCar.lastOil}", "${newCar.lastTire}");`,
                     function(err, data) {
                         newCar.id = this.lastID;
@@ -51,7 +49,6 @@ class SqliteCarDB {
     }
 
     static updateCar(car) {
-        //UPDATE VARIABLES
         this.db.run(`UPDATE Cars SET make="${car.make}", model="${car.model}", year="${car.year}", mileage="${car.mileage}", lastOil="${car.lastOil}", lastTire="${car.lastTire}" where id="${car.id}"`);
     }
 

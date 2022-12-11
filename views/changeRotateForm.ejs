@@ -10,13 +10,19 @@
             .btn-group{
                 padding:10px;
             }
+            .hidden {
+                display: none;
+            }
+            .btn.btn-success, .btn.btn-warning{
+                margin: 5px;
+            }
         </style>
 
 <% 
 if (update === 'oil') {
     route = `/cars/${car.id}/oil`;
 } else {
-    route = "/cars/${car.id}/tire";
+    route = `/cars/${car.id}/tire`;
 }
 %>
 <% if (car.errors.length > 0) { %>
@@ -33,23 +39,59 @@ if (update === 'oil') {
         <div class="btn-group">
             <a href="/" class="btn btn-primary" >Home</a>
             <a href="/cars" class="btn btn-primary">Cars</a>
-            <a href="/oil" class="btn btn-primary">Oil Changes</a>
-            <a href="/tire" class="btn btn-primary">Tire Rotation</a>
+            <a href="/oilInfo" class="btn btn-primary">Oil Changes</a>
+            <a href="/tireInfo" class="btn btn-primary">Tire Rotation</a>
         </div> 
 
         <form action="<%= route %>" accept-charset="UTF-8" method="post" class="form">
 
+            <div class="hidden">
+                <label for="car_make" class="form-label">Make/Manufacturer</label>
+                <select name="car[make]" id="car_make" class="form-select w-25" value="<%= car.make %>"> <!--value field might cause some problems?-->
+                    <option value="Chevrolet">Chevrolet</option>
+                    <option value="Ford">Ford</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Jeep">Jeep</option>
+                    <option value="Kia">Kia</option>
+                    <option value="Nissan">Nissan</option>
+                    <option value="Ram">Ram</option>
+                    <option value="Subaru">Subaru</option>
+                    <option value="Toyota">Toyota</option>
+                </select>
+            </div>
+
+            <div class="hidden">
+                <label for="car_model" class="form-label"><a data-toggle="tooltip" title="Name/model of your vehicle">Model</a></label>
+                <input type="text" name="car[model]" id="car_model" value="<%= car.model %>" class="form-control w-25">
+            </div>
+
+            <div class="hidden ">
+                <label for="car_year" class="form-label"><a data-toggle="tooltip" title="Year your vehicle was manufactured">Year</a></label>
+                <input type="text"name="car[year]" id="car_year" value="<%= car.year %>" class="form-control w-25">
+            </div>
+
             <div class="field ">
-                <label for="car_mileage" class="form-label"><a data-toggle="tooltip" title="Current number of miles on your vehilce">Updated Mileage</a></label>
+                <label for="car_mileage" class="form-label"><a data-toggle="tooltip" title="Current number of miles on your vehilce">Mileage</a></label>
                 <input type="text"name="car[mileage]" id="car_mileage" value="<%= car.mileage %>" class="form-control w-25">
             </div>
 
-            <div class="actions ">
+            <div class="hidden ">
+                <label for="car_lastOil" class="form-label"><a data-toggle="tooltip" title="Mileage on your vehicle when its oil was last changed">Mileage at Last Oil Change</a></label>
+                <input type="text"name="car[lastOil]" id="car_lastOil" value="<%= car.lastOil %>" class="form-control w-25">
+            </div>
+
+            <div class="hidden ">
+                <label for="car_lastTire" class="form-label"><a data-toggle="tooltip" title="Mileage on your vehicle when its tires were last rotated">Mileage at Last Tire Rotation</a></label>
+                <input type="text"name="car[lastTire]" id="car_lastTire" value="<%= car.lastTire %>" class="form-control w-25">
+            </div>
+
+            <div class="actions">
                 <input type="submit" name="commit" value="Update Mileage" class="btn btn-success"/>
             </div>
 
             <p>
-                <a href="/cars/:id" class="btn btn-warning">Back</a>
+                <a href="/cars" class="btn btn-warning">Back</a>
             </p>
 
         </form>

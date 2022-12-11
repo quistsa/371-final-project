@@ -33,14 +33,20 @@ class Car {
         }
 
         if (!this.lastOil || parseInt(this.lastOil) < 0 || parseInt(this.lastOil) > parseInt(this.mileage)){
-            this.errors.push("Car must have a valid last oil change number- make sure it is not larger than the car's overall mileage");
+            this.errors.push("Car must have a valid last oil change number");
         }
 
         if (!this.lastTire || parseInt(this.lastTire) < 0 || parseInt(this.lastTire) > parseInt(this.mileage)){
-            this.errors.push("Car must have a valid last tire rotation number- make sure it is not larger than the car's overall mileage");
+            this.errors.push("Car must have a valid last tire rotation number");
         }
 
         return this.errors.length <= 0;
+    }
+
+    isValidMiles() {
+        if (!this.mileage || parseInt(this.mileage) < 0){
+            this.errors.push("Car must have a valid milage number");
+        }
     }
 
 }

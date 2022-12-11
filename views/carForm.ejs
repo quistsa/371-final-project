@@ -43,15 +43,15 @@
             <div class="btn-group">
                 <a href="/" class="btn btn-primary" >Home</a>
                 <a href="/cars" class="btn btn-primary">Cars</a>
-                <a href="/oil" class="btn btn-primary">Oil Changes</a>
-                <a href="/tire" class="btn btn-primary">Tire Rotation</a>
+                <a href="/oilInfo" class="btn btn-primary">Oil Changes</a>
+                <a href="/tireInfo" class="btn btn-primary">Tire Rotation</a>
             </div> 
 
                 <form action="<%= route %>" accept-charset="UTF-8" method="post" class="form">
 
                     <div class="field">
                         <label for="car_make" class="form-label">Make/Manufacturer</label>
-                        <select name="car[make]" id="car_make" class="form-select w-25">
+                        <select name="car[make]" id="car_make" class="form-select w-25" value="<%= car.make %>"> <!--value field might cause some problems?-->
                             <option value="Chevrolet">Chevrolet</option>
                             <option value="Ford">Ford</option>
                             <option value="Honda">Honda</option>
